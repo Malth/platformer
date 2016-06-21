@@ -4,6 +4,8 @@ using System.Collections;
 public class Actor : MonoBehaviour {
 	public GameObject[] m_elements ;
 
+	//public BioElement
+
 	public void Mutate (BioElement other){
 		switch (other.m_BioElement) {
 		case BioEnum.Bacteria:
@@ -27,26 +29,26 @@ public class Actor : MonoBehaviour {
 
 	private void MuteBacteria(BioElement other)
 	{
-		//TODO
+		//TODO Solidifie un sol
 	}
 
 	private void MuteGeko(BioElement other)
 	{
-		//TODO
+		//TODO Rends un mur grimpable (plafond aussi)
 	}
 
 	private void MuteIvy(BioElement other)
 	{
-		//TODO
+		//TODO Crée des lières
 	}
 
 	private void MuteMushroom(BioElement other)
 	{
-		//TODO
+		//TODO crée un trampoline
 	}
 
 	private void MuteRoot(BioElement other)
 	{
-		//TODO
+		//TODO empèche le truc de bouger
 	}
 }
