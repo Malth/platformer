@@ -6,8 +6,13 @@ public class Lift : MonoBehaviour {
 	[HideInInspector]
 	public bool m_IsAiming = false;
 
-	private GameObject m_LiftedObject;
-	private GameObject m_TrigeredObject;
+	private GameObject m_LiftedObject = null;
+	private GameObject m_TrigeredObject = null;
+	private Rigidbody2D rigid;
+
+	void Start(){
+		rigid = this.gameObject.GetComponent<Rigidbody2D> ();
+	}
 
 	public void LiftThatShit (GameObject other) // Do you even lift bro?
 	{
@@ -38,26 +43,29 @@ public class Lift : MonoBehaviour {
 	}
 
 	void OnTriggerEnter2D (Collider2D other){
-		if (m_TrigeredObject == null && other.tag == "Liftable")
+		Debug.Log ("Enter");
+		if (m_TrigeredObject == null && other.gameObject.tag == "Liftable")
 			m_TrigeredObject = other.gameObject;
 	}
 
 	void OnTriggerExit2D (Collider2D other){
+		Debug.Log ("Exit");
 		if (m_TrigeredObject != null && other.tag == "Liftable")
 			m_LiftedObject = null;
 	}
 
 	void Update(){
 
-		if (Input.GetAxis ("Throw") != 0 && m_LiftedObject != null) { 		
+		/*if (Input.GetAxis ("Throw") != 0 && m_LiftedObject != null) { 		
 			m_IsAiming = true; 
-			// Slider to add
+			Vector3 speed;
+			speed.x = 0;
 		} else if (Input.GetAxis ("Throw") == 0 && m_LiftedObject != null && m_IsAiming) {
 			Throw ();
 			// TODO vector use
 		}
 		else
-			m_IsAiming = false;
+			m_IsAiming = false;*/
 
 		if (Input.GetButtonDown ("Drop") && m_LiftedObject != null) {
 			Drop ();
