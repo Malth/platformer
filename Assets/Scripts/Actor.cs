@@ -1,54 +1,72 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Actor : MonoBehaviour {
-	public GameObject[] m_elements ;
-
-	//public BioElement
+public abstract class Actor : MonoBehaviour, ILiftable {
+	public BioElement m_bioElement;
 
 	public void Mutate (BioElement other){
-		switch (other.m_BioElement) {
-		case BioEnum.Bacteria:
-			MuteBacteria (other);
-			break;
-		case BioEnum.Geko:
-			MuteGeko (other);
-			break;
-		case BioEnum.Ivy:
-			MuteIvy (other);
-			break;
-		case BioEnum.Mushroom:
-			MuteMushroom (other);
-			break;
-		case BioEnum.Root:
-			MuteRoot (other);
-			break;
+		if (m_bioElement == null) {
+			switch (other.m_BioElement) {
+			case BioEnum.Bacteria:
+				MutateBacteria (other);
+				break;
+			case BioEnum.Geko:
+				MutateGeko (other);
+				break;
+			case BioEnum.Ivy:
+				MutateIvy (other);
+				break;
+			case BioEnum.Mushroom:
+				MutateMushroom (other);
+				break;
+			case BioEnum.Root:
+				MutateRoot (other);
+				break;
+			}
 		}
-
 	}
 
-	private void MuteBacteria(BioElement other)
+	protected void OntriggerEnter2D(Collider2D other){
+		if (other.tag == "Liftable") {
+			this.Mutate(other.GetComponent<BioElement> () );
+		}
+	}
+
+	protected virtual void MutateBacteria(BioElement other)
 	{
 		//TODO Solidifie un sol
 	}
 
-	private void MuteGeko(BioElement other)
+	protected virtual void MutateGeko(BioElement other)
 	{
 		//TODO Rends un mur grimpable (plafond aussi)
 	}
 
-	private void MuteIvy(BioElement other)
+	protected virtual void MutateIvy(BioElement other)
 	{
 		//TODO Crée des lières
 	}
 
-	private void MuteMushroom(BioElement other)
+	protected virtual void MutateMushroom(BioElement other)
 	{
 		//TODO crée un trampoline
 	}
 
-	private void MuteRoot(BioElement other)
+	protected virtual void MutateRoot(BioElement other)
 	{
 		//TODO empèche le truc de bouger
+	}
+
+	public virtual bool CanIGetObjectPls(){
+		if (m_bioElement == null)
+			return false;
+		return true;
+	}
+
+	public virtual GameObject getObject(){
+		BioElement element = m_bioElement.GetComponent<BioElement> ();
+		element.m_generator.m_numberOfInstanceMax++;
+		GameObject objetARetourner = Instantiate (element.m_generator.m_ObjectToGenerate,this.transform.position + Vector3.up, Quaternion.identity) as GameObject;
+		return objetARetourner;
 	}
 }

@@ -42,7 +42,7 @@ public class PlayerController : MonoBehaviour
 	}
 
 
-	public void Move(float move, bool crouch, bool jump)
+	public void Move(float hori, float verti, bool jump, bool climb)
 	{
 
 		if (m_Grounded || m_AirControl)
@@ -51,16 +51,16 @@ public class PlayerController : MonoBehaviour
 			//m_Anim.SetFloat("Speed", Mathf.Abs(move));
 
 			// Move the character
-			m_Rigidbody2D.velocity = new Vector2(move*m_MaxSpeed, m_Rigidbody2D.velocity.y);
+			m_Rigidbody2D.velocity = new Vector2(hori*m_MaxSpeed, m_Rigidbody2D.velocity.y);
 
 			// If the input is moving the player right and the player is facing left...
-			if (move > 0 && !m_FacingRight)
+			if (hori > 0 && !m_FacingRight)
 			{
 				// ... flip the player.
 				Flip();
 			}
 			// Otherwise if the input is moving the player left and the player is facing right...
-			else if (move < 0 && m_FacingRight)
+			else if (hori < 0 && m_FacingRight)
 			{
 				// ... flip the player.
 				Flip();
@@ -74,6 +74,13 @@ public class PlayerController : MonoBehaviour
 			//m_Anim.SetBool("Ground", false);
 			m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
 		}
+
+		if (verti > 0 && climb) {
+			Debug.Log ("Climb this wall");
+			m_Rigidbody2D.velocity = new Vector2(m_Rigidbody2D.velocity.y, verti*m_MaxSpeed);
+
+		}
+
 	}
 
 

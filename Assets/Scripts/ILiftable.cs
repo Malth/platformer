@@ -2,5 +2,6 @@
 using System.Collections;
 
 public interface ILiftable {
-	 GameObject getObject ();
+	GameObject getObject ();
+	bool CanIGetObjectPls ();
 }
