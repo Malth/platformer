@@ -76,4 +76,9 @@ public abstract class Actor : MonoBehaviour, ILiftable {
 		m_bioElement = null;
 		return element.gameObject;
 	}
+
+	protected void DoShitWithBioElement(BioElement other){
+		m_bioElement = other;
+		other.gameObject.SetActive (false);
+	}
 }

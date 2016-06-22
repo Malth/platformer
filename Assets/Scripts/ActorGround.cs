@@ -12,14 +12,12 @@ public class ActorGround : Actor {
 	}
 
 	protected override void MutateMushroom(BioElement other){
-		m_bioElement = other;
-		other.gameObject.SetActive (false);
+		DoShitWithBioElement (other);
 		m_Mushroom.SetActive (true);
 	}
 
 	protected override void MutateIvy(BioElement other){
-		m_bioElement = other;
-		other.gameObject.SetActive (false);
+		DoShitWithBioElement (other);
 		m_Ivy.SetActive (true);
 	}
 

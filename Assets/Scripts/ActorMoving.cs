@@ -15,20 +15,16 @@ public class ActorMoving : Actor {
 	private bool m_canRun = true;
 	private Vector3 m_currentSpeed;
 
-	private Vector3 m_positionInitiale;
 	private Quaternion m_rotationInitiale;
 
 	void Start () {
 		if (m_behavior == MovingBehavior.ROTATE)
 			m_rotationInitiale = transform.rotation;
-		else
-			m_positionInitiale = transform.position;
 		m_switch = m_pos1.transform.position;
 	}
 
 	protected override void MutateRoot (BioElement other){
-		m_bioElement = other;
-		m_bioElement.gameObject.SetActive (false);
+		DoShitWithBioElement (other);
 		m_canRun = false;
 		if (m_behavior == MovingBehavior.ROTATE)
 			transform.rotation = m_rotationInitiale ;
