@@ -1,13 +1,11 @@
 fileFormatVersion: 2
-guid: fc82ddcd61c653141a1fa96a6b009bfe
-timeCreated: 1466622235
+guid: 9e4049873009c694585997db732853ac
+timeCreated: 1466622205
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: tilesand_0
-    21300002: tilesand_1
-    21300004: tilesand_2
-    21300006: tilesand_3
+    21300000: spritesheetDnaPurple_0
+    21300002: spritesheetDnaPurple_1
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -33,7 +31,7 @@ TextureImporter:
   textureFormat: -1
   maxTextureSize: 2048
   textureSettings:
-    filterMode: -1
+    filterMode: 0
     aniso: 16
     mipBias: -1
     wrapMode: 1
@@ -54,46 +52,24 @@ TextureImporter:
   buildTargetSettings: []
   spriteSheet:
     sprites:
-    - name: tilesand_0
+    - name: spritesheetDnaPurple_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 16
-        height: 16
+        height: 8
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: tilesand_1
+    - name: spritesheetDnaPurple_1
       rect:
         serializedVersion: 2
         x: 16
         y: 0
         width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-    - name: tilesand_2
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 0
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-    - name: tilesand_3
-      rect:
-        serializedVersion: 2
-        x: 48
-        y: 0
-        width: 16
-        height: 16
+        height: 8
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
