@@ -2,14 +2,18 @@
 using System.Collections;
 
 public class ActorSticky : Actor {
+	public GameObject m_stickyZone;
 
-	// Use this for initialization
-	void Start () {
-	
+	protected override void MutateGeko (BioElement other)
+	{
+		m_bioElement = other;
+		other.gameObject.SetActive (false);
+		m_stickyZone.SetActive (true);
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
+
+	public override GameObject getObject ()
+	{
+		m_stickyZone.SetActive (false);
+		return base.getObject ();
 	}
 }

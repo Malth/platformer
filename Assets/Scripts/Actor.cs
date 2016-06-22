@@ -69,7 +69,8 @@ public abstract class Actor : MonoBehaviour, ILiftable {
 
 	public virtual GameObject getObject(){
 		BioElement element = m_bioElement.GetComponent<BioElement> ();
-		element.m_generator.m_numberOfInstanceMax++;
+		if (element.m_generator != null)
+			element.m_generator.m_numberOfInstanceMax++;
 		m_bioElement.gameObject.SetActive (true);
 		return m_bioElement.gameObject;
 	}
