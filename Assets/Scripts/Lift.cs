@@ -25,7 +25,7 @@ public class Lift : MonoBehaviour {
 		//Changement de parent
 		m_LiftedObject.transform.parent = this.gameObject.transform;
 		//on élève de 1
-		m_LiftedObject.transform.position = m_LiftedObject.transform.parent.position + 2*Vector3.up;
+		m_LiftedObject.transform.position = m_LiftedObject.transform.parent.position + Vector3.up * 1.25f;
 		m_TrigeredObject = null;
 
 		Vector3 theScale = m_LiftedObject.transform.localScale;
