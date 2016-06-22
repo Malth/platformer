@@ -23,6 +23,7 @@ public class ActorGround : Actor {
 
 	public override GameObject getObject(){
 		m_Mushroom.SetActive (false);
+		InputController.controller.EndClimbing ();
 		m_Ivy.SetActive (false);
 		return base.getObject();
 	}

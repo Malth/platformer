@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class InputController : MonoBehaviour	{
 
+	public static InputController controller;
+
 	private PlayerController m_Character;
 	private bool m_Jump;
 	private bool m_Climb;
@@ -10,6 +12,7 @@ public class InputController : MonoBehaviour	{
 	private GameObject m_surfaceToClimb = null;
 
 	private void Awake(){
+		controller = this;
 		m_Character = GetComponent<PlayerController>();
 	}
 
@@ -40,8 +43,7 @@ public class InputController : MonoBehaviour	{
 
 	void OnTriggerExit2D (Collider2D other){
 		if (m_surfaceToClimb != null && other.gameObject.tag == "Climbable") {
-			m_surfaceToClimb = null;
-			m_Climb = false;
+			EndClimbing ();
 
 		}
 	}
@@ -56,5 +58,10 @@ public class InputController : MonoBehaviour	{
 		else 
 			m_Character.Move(0, v, m_Jump, m_Climb);
 		m_Jump = false;
+	}
+
+	public void EndClimbing(){
+		this.m_Climb = false;
+		m_surfaceToClimb = null;
 	}
 }
