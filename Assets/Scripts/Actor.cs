@@ -3,6 +3,7 @@ using System.Collections;
 using System;
 
 public abstract class Actor : MonoBehaviour, ILiftable {
+	[HideInInspector]
 	public BioElement m_bioElement;
 
 	public void Mutate (BioElement other){
@@ -71,7 +72,8 @@ public abstract class Actor : MonoBehaviour, ILiftable {
 		BioElement element = m_bioElement.GetComponent<BioElement> ();
 		if (element.m_generator != null)
 			element.m_generator.m_numberOfInstanceMax++;
-		m_bioElement.gameObject.SetActive (true);
-		return m_bioElement.gameObject;
+		element.gameObject.SetActive (true);
+		m_bioElement = null;
+		return element.gameObject;
 	}
 }

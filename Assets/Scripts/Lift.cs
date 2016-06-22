@@ -59,7 +59,7 @@ public class Lift : MonoBehaviour {
 	}
 
 	void OnTriggerEnter2D (Collider2D other){
-		if (m_TrigeredObject == null && other.gameObject.tag == "Liftable") 
+		if (other.gameObject.tag == "Liftable") 
 			m_TrigeredObject = other.gameObject;
 	}
 

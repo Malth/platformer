@@ -13,23 +13,13 @@ public class InputController : MonoBehaviour	{
 		m_Character = GetComponent<PlayerController>();
 	}
 
-	void useTheForceLuke()
-	{
-		Debug.Log ("Entering the Force !");
-		Debug.Log (m_surfaceToClimb.gameObject.name);
-	}
-
 	private void Update()
 	{
-		if (!m_Jump)
-		{
+		if (!m_Jump){
 			m_Jump = Input.GetButtonDown("Jump");
 		}
 
-		if (Input.GetButtonDown ("Force"))
-			useTheForceLuke ();
-
-		if (Input.GetButtonDown("Vertical"))
+		if (Input.GetAxis("Vertical") <= 0)
 			{
 			if (m_surfaceToClimb != null)
 				m_Climb = true;
@@ -45,7 +35,6 @@ public class InputController : MonoBehaviour	{
 		
 		if (m_surfaceToClimb == null && other.gameObject.tag == "Climbable") {
 			m_surfaceToClimb = other.gameObject;
-			Debug.Log ("Near Wall");
 		}
 	}
 
@@ -53,7 +42,6 @@ public class InputController : MonoBehaviour	{
 		if (m_surfaceToClimb != null && other.gameObject.tag == "Climbable") {
 			m_surfaceToClimb = null;
 			m_Climb = false;
-			Debug.Log ("Far from Wall");
 
 		}
 	}
