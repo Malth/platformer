@@ -8,31 +8,26 @@ public class ActorMoving : Actor {
 	}
 	public MovingBehavior m_behavior;
 	public float m_speed;
-	public GameObject m_plateform;
-	public Vector3 m_pos1;
-	public Vector3 m_pos2;
+	public GameObject m_pos1;
+	public GameObject m_pos2;
 
 	private Vector3 m_switch;
 	private bool m_canRun = true;
 	private Vector3 m_currentSpeed;
 
-	private Vector3 m_positionInitiale;
 	private Quaternion m_rotationInitiale;
 
 	void Start () {
 		if (m_behavior == MovingBehavior.ROTATE)
-			m_rotationInitiale = m_plateform.transform.rotation;
-		else
-			m_positionInitiale = m_plateform.transform.position;
+			m_rotationInitiale = transform.rotation;
+		m_switch = m_pos1.transform.position;
 	}
 
 	protected override void MutateRoot (BioElement other){
-		m_bioElement = other;
+		DoShitWithBioElement (other);
 		m_canRun = false;
 		if (m_behavior == MovingBehavior.ROTATE)
-			m_plateform.transform.rotation = m_rotationInitiale ;
-		else
-			m_plateform.transform.position = m_positionInitiale ;
+			transform.rotation = m_rotationInitiale ;
 	}
 
 	public override GameObject getObject ()
@@ -45,17 +40,17 @@ public class ActorMoving : Actor {
 		if (m_canRun) {
 			switch (m_behavior) {
 			case MovingBehavior.SLIDE:
-				m_plateform.transform.position = Vector3.SmoothDamp (m_plateform.transform.position, m_switch,ref m_currentSpeed, 0.2f, m_speed );
+				transform.position = Vector3.SmoothDamp (transform.position, m_switch,ref m_currentSpeed, 0.2f, m_speed );
 				break;
 			case MovingBehavior.ROTATE:
-				m_bioElement.gameObject.transform.Rotate (new Vector3 (0, 0, 30) * Time.deltaTime * m_speed);
+				transform.Rotate (new Vector3 (0, 0, 30) * Time.deltaTime * m_speed);
 				break;
 			}
 
-			if (Vector3.Distance (m_switch, m_plateform.transform.position) < 0.2f) {
-				if (m_switch == m_pos1)
-					m_switch = m_pos2;
-				else m_switch = m_pos1;
+			if (Vector3.Distance (m_switch, transform.position) < 0.2f) {
+				if (m_switch == m_pos1.transform.position)
+					m_switch = m_pos2.transform.position;
+				else m_switch = m_pos1.transform.position;
 			}
 		}
 	}
