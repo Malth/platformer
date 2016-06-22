@@ -10,15 +10,16 @@ public class ActorSand : Actor {
 		m_canKill = false;
 	}
 
-	public override bool CanIGetObjectPls ()
+	public override GameObject getObject ()
 	{
 		m_canKill = true;
-		return base.CanIGetObjectPls ();
+		return base.getObject ();
 	}
 
-	private void OnTriggerEnter2D (Collider2D other){
+	protected void OnTriggerEnter2D (Collider2D other){
 		if (m_canKill)
 			if (other.tag == "Player")
 				other.transform.position = m_spawnPoint;
+		base.OnTriggerEnter2D (other);
 	}
 }

@@ -8,6 +8,7 @@ public class ActorGround : Actor {
 
 	protected override void MutateMushroom(BioElement other){
 		m_bioElement = other;
+		other.gameObject.SetActive (false);
 		m_Mushroom.transform.localScale = Vector3.one;
 	}
 

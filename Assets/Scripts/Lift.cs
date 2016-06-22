@@ -4,7 +4,7 @@ using UnityEngine;
 public class Lift : MonoBehaviour {
 	public float m_ThrowingForce = 5f;
 	[HideInInspector]
-	public bool m_IsAiming = false;
+	public static bool m_IsAiming = false;
 
 	private GameObject m_LiftedObject = null;
 	private GameObject m_TrigeredObject = null;
@@ -38,11 +38,12 @@ public class Lift : MonoBehaviour {
 	public void Throw(){
 		GameObject obj = m_LiftedObject;
 		Drop ();
-		if (this.gameObject.transform.localScale.x > 0)
+		/*if (this.gameObject.transform.localScale.x > 0)
 			obj.GetComponent<Rigidbody2D> ().velocity =  Vector2.one * m_ThrowingForce;
 		else 
 			obj.GetComponent<Rigidbody2D> ().velocity =  new Vector2(-1, 1) * m_ThrowingForce;
-		
+		*/
+		obj.GetComponent<Rigidbody2D> ().velocity = new Vector2 (Input.GetAxis("Horizontal"),Input.GetAxis("Vertical")) * m_ThrowingForce;
 		m_IsAiming = false;
 	}
 

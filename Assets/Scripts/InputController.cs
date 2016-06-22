@@ -63,8 +63,10 @@ public class InputController : MonoBehaviour	{
 	{
 		float h = Input.GetAxis("Horizontal");
 		float v = Input.GetAxis ("Vertical");
-		// Pass all parameters to the character control script.
-		m_Character.Move(h, v, m_Jump, m_Climb);
+		if (!Lift.m_IsAiming)
+			m_Character.Move(h, v, m_Jump, m_Climb);
+		else 
+			m_Character.Move(0, v, m_Jump, m_Climb);
 		m_Jump = false;
 	}
 }
