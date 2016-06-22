@@ -6,7 +6,7 @@ public class Lift : MonoBehaviour {
 	[HideInInspector]
 	public static bool m_IsAiming = false;
 
-	private GameObject m_LiftedObject = null;
+	private static GameObject m_LiftedObject = null;
 	private GameObject m_TrigeredObject = null;
 	private Rigidbody2D rigid;
 
@@ -89,5 +89,9 @@ public class Lift : MonoBehaviour {
 			} else
 				m_IsAiming = false;
 		}
+	}
+
+	public static bool IsLifting ()	{
+		return m_LiftedObject != null;
 	}
 }

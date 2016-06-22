@@ -10,17 +10,14 @@ public class PlayerController : MonoBehaviour
 
 	private Transform m_GroundCheck;    // A position marking where to check if the player is grounded.
 	const float k_GroundedRadius = .2f; // Radius of the overlap circle to determine if grounded
-	private bool m_Grounded;            // Whether or not the player is grounded.
-	//private Animator m_Anim;            // Reference to the player's animator component.
+	public static bool m_Grounded;            // Whether or not the player is grounded.
 	private Rigidbody2D m_Rigidbody2D;
 	private bool m_FacingRight = true;  // For determining which way the player is currently facing.
 
 	private void Awake()
 	{
-		// Setting up references.
 		m_GroundCheck = transform.Find("GroundCheck");
-		//m_Anim = GetComponent<Animator>();
-		m_Rigidbody2D = GetComponent<Rigidbody2D>();
+		m_Rigidbody2D = this.GetComponent<Rigidbody2D>();
 	}
 
 
@@ -28,17 +25,12 @@ public class PlayerController : MonoBehaviour
 	{
 		m_Grounded = false;
 
-		// The player is grounded if a circlecast to the groundcheck position hits anything designated as ground
-		// This can be done using layers instead but Sample Assets will not overwrite your project settings.
 		foreach (Collider2D c in Physics2D.OverlapCircleAll(m_GroundCheck.position, k_GroundedRadius, m_WhatIsGround))
 		{
 			if (c != gameObject)
 				m_Grounded = true;
 		}
-		//m_Anim.SetBool("Ground", m_Grounded);
-
-		// Set the vertical animation
-		//m_Anim.SetFloat("vSpeed", m_Rigidbody2D.velocity.y);
+			
 	}
 
 
@@ -47,7 +39,6 @@ public class PlayerController : MonoBehaviour
 
 		if (m_Grounded || m_AirControl)
 		{
-			//m_Anim.SetFloat("Speed", Mathf.Abs(move));
 
 			m_Rigidbody2D.velocity = new Vector2(hori*m_MaxSpeed, climb ? 0 : m_Rigidbody2D.velocity.y);
 

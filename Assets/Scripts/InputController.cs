@@ -8,12 +8,13 @@ public class InputController : MonoBehaviour	{
 	private PlayerController m_Character;
 	private bool m_Jump;
 	private bool m_Climb;
-
+	private Animator m_Anim;
 	private GameObject m_surfaceToClimb = null;
 
 	private void Awake(){
 		controller = this;
 		m_Character = GetComponent<PlayerController>();
+		m_Anim = GetComponent<Animator>();
 	}
 
 	private void Update()
@@ -57,6 +58,10 @@ public class InputController : MonoBehaviour	{
 			m_Character.Move(h, v, m_Jump, m_Climb);
 		else 
 			m_Character.Move(0, v, m_Jump, m_Climb);
+
+		m_Anim.SetBool ("Walking", h != 0);
+		m_Anim.SetBool ("Lifting", Lift.IsLifting ());
+		m_Anim.SetBool ("Jump", !PlayerController.m_Grounded);
 		m_Jump = false;
 	}
 
