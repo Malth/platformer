@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public abstract class Actor : MonoBehaviour, ILiftable {
 	public BioElement m_bioElement;
@@ -26,9 +27,12 @@ public abstract class Actor : MonoBehaviour, ILiftable {
 		}
 	}
 
-	protected void OntriggerEnter2D(Collider2D other){
-		if (other.tag == "Liftable") {
-			this.Mutate(other.GetComponent<BioElement> () );
+	protected virtual void OnTriggerEnter2D(Collider2D other){
+		try {
+			if (other.tag == "Liftable") {
+				this.Mutate(other.GetComponent<BioElement> () );
+			}
+		} catch (NullReferenceException  e){
 		}
 	}
 
@@ -66,7 +70,7 @@ public abstract class Actor : MonoBehaviour, ILiftable {
 	public virtual GameObject getObject(){
 		BioElement element = m_bioElement.GetComponent<BioElement> ();
 		element.m_generator.m_numberOfInstanceMax++;
-		GameObject objetARetourner = Instantiate (element.m_generator.m_ObjectToGenerate,this.transform.position + Vector3.up, Quaternion.identity) as GameObject;
-		return objetARetourner;
+		m_bioElement.gameObject.SetActive (true);
+		return m_bioElement.gameObject;
 	}
 }
