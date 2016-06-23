@@ -24,16 +24,24 @@ public class GeekoFeel : MonoBehaviour {
 	}
 
 	void OnTriggerEnter2D(Collider2D other){
-		if (other.tag == "Player") {
+		if (other.tag == "Player" && !m_isWalkingSideways) {
 			other.transform.Rotate (m_rotato);
 			m_isWalkingSideways = true;
 		}
 	}
 
 	void OnTriggerExit2D(Collider2D other) {
-		if (other.tag == "Player") {
+		if (other.tag == "Player" && m_isWalkingSideways) {
 			other.transform.Rotate (m_rotato * -1);
 			m_isWalkingSideways = false;
+		}
+	}
+
+	public void HasEnded(){
+		if (m_isWalkingSideways) {
+			m_isWalkingSideways = false;
+			InputController.m_Character.gameObject.transform.Rotate (m_rotato * -1);
+			InputController.m_Character.GetComponent<InputController> ().EndClimbing ();
 		}
 	}
 }

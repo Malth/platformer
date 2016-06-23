@@ -18,10 +18,7 @@ public class GameManagerScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		Debug.Log ("Youpi upate");
 		if (Input.GetKeyDown (KeyCode.Escape) || Input.GetKeyDown (KeyCode.JoystickButton7)) {
-			Debug.Log ("Here we go !");
-			togglePause = !togglePause;
 			if (togglePause) {
 				Time.timeScale = 0f;
 				can.gameObject.SetActive (true);
