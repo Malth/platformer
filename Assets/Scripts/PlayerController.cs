@@ -31,7 +31,6 @@ public class PlayerController : MonoBehaviour
 			if (c != gameObject)
 				m_Grounded = true;
 		}
-			
 	}
 
 

@@ -8,7 +8,6 @@ public class GeekoFeel : MonoBehaviour {
 	public static bool m_isWalkingSideways;
 
 	private Vector3 m_rotato;
-	private Vector3 m_directionAttraction;
 	void Start() {
 		switch (m_direction) {
 		case direction.DROITE:
