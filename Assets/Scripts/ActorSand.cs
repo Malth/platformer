@@ -6,10 +6,13 @@ public class ActorSand : Actor {
 	public GameObject m_spawnPoint;
 	public GameObject[] m_sable;
 	public AudioClip m_deathSound;
+	public bool m_isNormalSand = false;
 
 	private bool m_canKill = true;
 
 	protected override void MutateBacteria (BioElement other) {
+		if (m_isNormalSand)
+			return;
 		m_bioElement = other;
 		m_bioElement.gameObject.SetActive (false);
 		m_canKill = false;
