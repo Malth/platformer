@@ -7,7 +7,7 @@ public class InputController : MonoBehaviour	{
 	public AudioClip m_SoundWalk1;
 	public AudioClip m_SoundWalk2;
 
-	private PlayerController m_Character;
+	public static PlayerController m_Character;
 	private bool m_Jump;
 	private bool m_Climb;
 	private Animator m_Anim;
