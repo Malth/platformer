@@ -56,8 +56,8 @@ public class PlayerController : MonoBehaviour
 				SoundMannager.instance.PlaySingle (m_SoundJump);
 			}
 
-			if (verti != 0 && climb)
-				m_Rigidbody2D.velocity = new Vector2 (m_Rigidbody2D.velocity.x, verti * m_MaxSpeed);
+			if (climb)
+				m_Rigidbody2D.velocity = new Vector2 (hori * m_MaxSpeed, verti * m_MaxSpeed);
 		}
 
 	}
