@@ -49,8 +49,9 @@ public class PlayerController : MonoBehaviour
 			else if (hori < 0 && m_FacingRight) {
 				Flip ();
 			}
-			// If the player should jump...
-			if (m_Grounded && jump) {
+			if (climb)
+				m_Rigidbody2D.velocity = new Vector2 (hori * m_MaxSpeed, verti * m_MaxSpeed);
+			else if (m_Grounded && jump) {
 				m_Grounded = false;
 				m_Rigidbody2D.velocity = new Vector2 (m_Rigidbody2D.velocity.x, m_JumpForce);
 				SoundMannager.instance.RandomizeSFX (new AudioClip [] {m_SoundJump});

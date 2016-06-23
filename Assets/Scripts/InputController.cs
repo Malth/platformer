@@ -13,7 +13,6 @@ public class InputController : MonoBehaviour	{
 	private bool m_Jump;
 	private bool m_Climb;
 	private Animator m_Anim;
-	private GameObject m_surfaceToClimb = null;
 	private float timerFootSound;
 
 	private GameObject movingPlatform;
@@ -31,17 +30,6 @@ public class InputController : MonoBehaviour	{
 			m_Jump = Input.GetButtonDown("Jump");
 		}
 
-		if (Input.GetAxis("Vertical") <= 0)
-		{
-			if (m_surfaceToClimb != null)
-				m_Climb = true;
-		}
-		if (Input.GetButtonUp("Vertical"))
-		{
-			if (m_surfaceToClimb != null)
-				m_Climb = false;
-		}
-
 		if (PlayerController.m_Grounded && m_movingPlatform != null) {
 			this.gameObject.transform.parent = m_movingPlatform.transform;
 		} else {
@@ -52,8 +40,8 @@ public class InputController : MonoBehaviour	{
 
 	void OnTriggerEnter2D (Collider2D other){
 
-		if (m_surfaceToClimb == null && other.gameObject.tag == "Climbable") {
-			m_surfaceToClimb = other.gameObject;
+		if (other.gameObject.tag == "Climbable") {
+			m_Climb = true;
 		}
 		if (other.gameObject.GetComponent <ActorMoving>() && m_movingPlatform == null ) {
 			if (other.gameObject.GetComponent  <ActorMoving> ().m_behavior == ActorMoving.MovingBehavior.SLIDE) {
@@ -63,7 +51,7 @@ public class InputController : MonoBehaviour	{
 	}
 
 	void OnTriggerExit2D (Collider2D other){
-		if (m_surfaceToClimb != null && other.gameObject.tag == "Climbable") {
+		if (other.gameObject.tag == "Climbable") {
 			EndClimbing ();
 		}
 		if (other.gameObject.GetComponent ("ActorMoving") && m_movingPlatform != null) {
@@ -96,6 +84,5 @@ public class InputController : MonoBehaviour	{
 
 	public void EndClimbing(){
 		this.m_Climb = false;
-		m_surfaceToClimb = null;
 	}
 }

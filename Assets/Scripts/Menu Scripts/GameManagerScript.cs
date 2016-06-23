@@ -18,13 +18,15 @@ public class GameManagerScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (Input.GetKeyDown (KeyCode.Escape) || Input.GetKeyDown (KeyCode.JoystickButton7)) {
-			if (togglePause) {
-				Time.timeScale = 0f;
+			if (!togglePause) {
 				can.gameObject.SetActive (true);
 				tabText [0].color = Color.yellow;
+				togglePause = true;
+				Time.timeScale = 0f;
 			} else {
-				Time.timeScale = 1.0f;
 				can.gameObject.SetActive (false);
+				togglePause = false;
+				Time.timeScale = 1.0f;
 			}
 		}
 		//COMMANDES EN MODE PAUSE
@@ -72,7 +74,7 @@ public class GameManagerScript : MonoBehaviour {
 				}
 			}
 
-			if (Input.GetAxisRaw("Vertical") < 0.2f && Input.GetAxisRaw("Vertical") > -0.2f)
+			if (Input.GetAxis("Vertical") < 0.6f && Input.GetAxis("Vertical") > -0.6f)
 			{
 				mustgetBackToCenter = false;
 			}

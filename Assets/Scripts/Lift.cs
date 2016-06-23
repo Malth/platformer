@@ -11,12 +11,14 @@ public class Lift : MonoBehaviour {
 	public GameObject m_Aim;
 
 	private static GameObject m_LiftedObject = null;
-	private GameObject m_TrigeredObject = null;
+	private static ArrayList m_TrigeredObject = new ArrayList();
 
 	public void LiftThatShit (GameObject other) // Do you even lift bro?
 	{
-		if (!other.GetComponent<ILiftable> ().CanIGetObjectPls())
+		if (!other.GetComponent<ILiftable> ().CanIGetObjectPls ()) {
+			m_TrigeredObject.Remove (other.gameObject);
 			return;
+		}
 		m_LiftedObject = other.GetComponent<ILiftable> ().getObject ();
 		m_LiftedObject.GetComponent<Collider2D> ().enabled = false;
 		m_LiftedObject.GetComponent<Rigidbody2D> ().gravityScale = 0;
@@ -25,24 +27,17 @@ public class Lift : MonoBehaviour {
 		m_LiftedObject.transform.parent = this.gameObject.transform;
 		//on élève de 1
 		m_LiftedObject.transform.position = m_LiftedObject.transform.parent.position + Vector3.up * 1.25f;
-		m_TrigeredObject = null;
+		m_TrigeredObject.Remove(other);
 
 		Vector3 theScale = m_LiftedObject.transform.localScale;
 		theScale.y *= -1;
 		m_LiftedObject.transform.localScale = theScale;
-
-		m_TrigeredObject = null;
 		SoundMannager.instance.RandomizeSFX (new AudioClip [] {m_SoundGrab});
 	}
 
 	public void Throw(){
 		GameObject obj = m_LiftedObject;
 		Drop ();
-		/*if (this.gameObject.transform.localScale.x > 0)
-			obj.GetComponent<Rigidbody2D> ().velocity =  Vector2.one * m_ThrowingForce;
-		else 
-			obj.GetComponent<Rigidbody2D> ().velocity =  new Vector2(-1, 1) * m_ThrowingForce;
-		*/
 		obj.GetComponent<Rigidbody2D> ().velocity = new Vector2 (Input.GetAxis("Horizontal"),Input.GetAxis("Vertical")) * m_ThrowingForce;
 		m_IsAiming = false;
 		SoundMannager.instance.RandomizeSFX (new AudioClip [] {m_SoundThrow});
@@ -60,13 +55,13 @@ public class Lift : MonoBehaviour {
 	}
 
 	void OnTriggerEnter2D (Collider2D other){
-		if (other.gameObject.tag == "Liftable") 
-			m_TrigeredObject = other.gameObject;
+		if (other.gameObject.tag == "Liftable" && !m_TrigeredObject.Contains(other.gameObject)) 
+			m_TrigeredObject.Add(other.gameObject);
 	}
 
 	void OnTriggerExit2D (Collider2D other){
-		if (m_TrigeredObject != null && other.tag == "Liftable") 
-			m_TrigeredObject = null;
+		if (other.tag == "Liftable" && m_TrigeredObject.Contains (other.gameObject)) 
+			m_TrigeredObject.Remove(other.gameObject);
 	}
 
 
@@ -77,8 +72,10 @@ public class Lift : MonoBehaviour {
 				Drop ();
 				SoundMannager.instance.RandomizeSFX (new AudioClip [] {m_SoundDrop});
 			}
-			else if (m_TrigeredObject != null)
-				LiftThatShit (m_TrigeredObject);
+			else if (m_TrigeredObject.Count != 0)
+
+					
+				LiftThatShit ((GameObject) m_TrigeredObject[0]);
 		}
 
 		if (Input.GetButtonDown ("Throw") && m_LiftedObject != null) { 
@@ -101,5 +98,10 @@ public class Lift : MonoBehaviour {
 
 	public static bool IsLifting ()	{
 		return m_LiftedObject != null;
+	}
+
+	public static void removeInstance(GameObject go){
+		if (m_TrigeredObject.Contains(go))
+			m_TrigeredObject.Remove (go);
 	}
 }

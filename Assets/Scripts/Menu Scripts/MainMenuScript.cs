@@ -22,13 +22,13 @@ public class MainMenuScript : MonoBehaviour {
 				tabButton [index].color = Color.black;
 				if (Input.GetKeyDown (KeyCode.UpArrow) || Input.GetAxis ("Vertical") > 0) {
 					if (index <= 0)
-						index = 3;
+						index = 2;
 					else
 						index--;
 					Debug.Log ("index : " + index + "name : " + tabButton [index].name);
 				}
 				if (Input.GetKeyDown (KeyCode.DownArrow) || Input.GetAxis ("Vertical") < 0) {
-					if (index >= 3)
+					if (index >= 2)
 						index = 0;
 					else
 						index++;
@@ -45,19 +45,16 @@ public class MainMenuScript : MonoBehaviour {
 				Application.LoadLevel ("Level");
 				break;
 			case 1:
-				Application.LoadLevel ("Options");
-				break;
-			case 2:
 				Application.LoadLevel ("Credits");
 				break;
-			case 3:
+			case 2:
 				Application.Quit();
 				break;
 
 			}
 		}
 
-		if (Input.GetAxisRaw("Vertical") < 0.2f && Input.GetAxisRaw("Vertical") > -0.2f)
+		if (Input.GetAxisRaw("Vertical") < 0.4f && Input.GetAxisRaw("Vertical") > -0.4f)
 		{
 			mustgetBackToCenter = false;
 		}
