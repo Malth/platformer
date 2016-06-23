@@ -18,6 +18,7 @@ public class ActorSand : Actor {
 		m_canKill = false;
 		SwitchSandAnim ();
 		m_bioAffiche.SetActive (true);
+		Debug.Log ("blblbl");
 	}
 
 	public override GameObject getObject ()
