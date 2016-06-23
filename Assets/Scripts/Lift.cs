@@ -8,11 +8,6 @@ public class Lift : MonoBehaviour {
 
 	private static GameObject m_LiftedObject = null;
 	private GameObject m_TrigeredObject = null;
-	private Rigidbody2D rigid;
-
-	void Start(){
-		rigid = this.gameObject.GetComponent<Rigidbody2D> ();
-	}
 
 	public void LiftThatShit (GameObject other) // Do you even lift bro?
 	{
