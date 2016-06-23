@@ -5,6 +5,9 @@ public class Lift : MonoBehaviour {
 	public float m_ThrowingForce = 5f;
 	[HideInInspector]
 	public static bool m_IsAiming = false;
+	public AudioClip m_SoundGrab;
+	public AudioClip m_SoundThrow;
+	public AudioClip m_SoundDrop;
 
 	private static GameObject m_LiftedObject = null;
 	private GameObject m_TrigeredObject = null;
@@ -28,6 +31,7 @@ public class Lift : MonoBehaviour {
 		m_LiftedObject.transform.localScale = theScale;
 
 		m_TrigeredObject = null;
+		SoundMannager.instance.PlaySingle (m_SoundGrab);
 	}
 
 	public void Throw(){
@@ -40,6 +44,7 @@ public class Lift : MonoBehaviour {
 		*/
 		obj.GetComponent<Rigidbody2D> ().velocity = new Vector2 (Input.GetAxis("Horizontal"),Input.GetAxis("Vertical")) * m_ThrowingForce;
 		m_IsAiming = false;
+		SoundMannager.instance.PlaySingle (m_SoundThrow);
 	}
 
 	public void Drop(){
@@ -67,8 +72,10 @@ public class Lift : MonoBehaviour {
 	void Update(){
 		Vector3 speed;
 		if (Input.GetButtonDown ("Grab")) {
-			if (m_LiftedObject != null)
+			if (m_LiftedObject != null) {
 				Drop ();
+				SoundMannager.instance.PlaySingle (m_SoundDrop);
+			}
 			else if (m_TrigeredObject != null)
 				LiftThatShit (m_TrigeredObject);
 		}

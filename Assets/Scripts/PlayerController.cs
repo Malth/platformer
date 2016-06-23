@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
 	[SerializeField] private float m_JumpForce = 7f;                  // Amount of force added when the player jumps.
 	[SerializeField] private bool m_AirControl = false;                 // Whether or not a player can steer while jumping;
 	[SerializeField] private LayerMask m_WhatIsGround;                  // A mask determining what is ground to the character
+	public AudioClip m_SoundJump;
 
 	private Transform m_GroundCheck;    // A position marking where to check if the player is grounded.
 	const float k_GroundedRadius = .2f; // Radius of the overlap circle to determine if grounded
@@ -58,6 +59,7 @@ public class PlayerController : MonoBehaviour
 		{
 			m_Grounded = false;
 			m_Rigidbody2D.velocity = new Vector2(m_Rigidbody2D.velocity.x, m_JumpForce);
+			SoundMannager.instance.PlaySingle (m_SoundJump);
 		}
 
 		if (verti != 0 && climb) {

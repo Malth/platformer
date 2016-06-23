@@ -5,6 +5,7 @@ using System;
 public class ActorSand : Actor {
 	public GameObject m_spawnPoint;
 	public GameObject[] m_sable;
+	public AudioClip m_deathSound;
 
 	private bool m_canKill = true;
 
@@ -25,8 +26,10 @@ public class ActorSand : Actor {
 
 	protected override void OnTriggerEnter2D (Collider2D other){
 		if (m_canKill) {
-			if (other.tag == "Player")
+			if (other.tag == "Player") {
 				other.transform.position = m_spawnPoint.transform.position;
+				SoundMannager.instance.PlaySingle (m_deathSound);
+			}
 		}
 		base.OnTriggerEnter2D (other);
 	}

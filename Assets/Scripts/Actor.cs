@@ -6,6 +6,7 @@ public abstract class Actor : MonoBehaviour, ILiftable {
 	[HideInInspector]
 	public BioElement m_bioElement;
 	public GameObject m_bioAffiche;
+	public AudioClip m_audioActive;
 
 	protected virtual void Start(){
 		m_bioAffiche.SetActive (false);
@@ -86,5 +87,6 @@ public abstract class Actor : MonoBehaviour, ILiftable {
 	protected void DoShitWithBioElement(BioElement other){
 		m_bioElement = other;
 		other.gameObject.SetActive (false);
+		SoundMannager.instance.PlaySingle (m_audioActive);
 	}
 }
