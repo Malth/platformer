@@ -87,6 +87,6 @@ public abstract class Actor : MonoBehaviour, ILiftable {
 	protected void DoShitWithBioElement(BioElement other){
 		m_bioElement = other;
 		other.gameObject.SetActive (false);
-		SoundMannager.instance.PlaySingle (m_audioActive);
+		SoundMannager.instance.RandomizeSFX (new AudioClip [] {m_audioActive});
 	}
 }

@@ -20,7 +20,8 @@ public class ActorMoving : Actor {
 	private Quaternion m_rotationInitiale;
 
 	protected override void Start () {
-		base.Start ();
+		if (!m_normalBlock)
+			base.Start ();
 		if (m_behavior == MovingBehavior.ROTATE)
 			m_rotationInitiale = transform.rotation;
 		pos1 = m_pos1.transform.position;
@@ -49,7 +50,7 @@ public class ActorMoving : Actor {
 		if (m_canRun) {
 			switch (m_behavior) {
 			case MovingBehavior.SLIDE:
-				transform.position = Vector3.SmoothDamp (transform.position, m_switch,ref m_currentSpeed, 0.2f, m_speed );
+				transform.position = Vector3.SmoothDamp (transform.position, m_switch,ref  m_currentSpeed, 0.2f, m_speed );
 				break;
 			case MovingBehavior.ROTATE:
 				transform.Rotate (new Vector3 (0, 0, 30) * Time.deltaTime * m_speed);

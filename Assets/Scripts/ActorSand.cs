@@ -31,7 +31,7 @@ public class ActorSand : Actor {
 		if (m_canKill) {
 			if (other.tag == "Player") {
 				other.transform.position = m_spawnPoint.transform.position;
-				SoundMannager.instance.PlaySingle (m_deathSound);
+				SoundMannager.instance.RandomizeSFX (new AudioClip [] {m_deathSound});
 			}
 		}
 		base.OnTriggerEnter2D (other);

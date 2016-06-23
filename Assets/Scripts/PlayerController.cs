@@ -53,7 +53,7 @@ public class PlayerController : MonoBehaviour
 			if (m_Grounded && jump) {
 				m_Grounded = false;
 				m_Rigidbody2D.velocity = new Vector2 (m_Rigidbody2D.velocity.x, m_JumpForce);
-				SoundMannager.instance.PlaySingle (m_SoundJump);
+				SoundMannager.instance.RandomizeSFX (new AudioClip [] {m_SoundJump});
 			}
 
 			if (climb)

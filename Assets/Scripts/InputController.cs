@@ -43,10 +43,8 @@ public class InputController : MonoBehaviour	{
 		}
 
 		if (PlayerController.m_Grounded && m_movingPlatform != null) {
-			Debug.Log ("Entering of sync");
 			this.gameObject.transform.parent = m_movingPlatform.transform;
 		} else {
-			Debug.Log ("Out of sync");
 			this.gameObject.transform.parent = null;
 		}
 
@@ -60,7 +58,6 @@ public class InputController : MonoBehaviour	{
 		if (other.gameObject.GetComponent <ActorMoving>() && m_movingPlatform == null ) {
 			if (other.gameObject.GetComponent  <ActorMoving> ().m_behavior == ActorMoving.MovingBehavior.SLIDE) {
 				m_movingPlatform = other.gameObject;
-				Debug.Log (m_movingPlatform.name);
 			}
 		}
 	}
