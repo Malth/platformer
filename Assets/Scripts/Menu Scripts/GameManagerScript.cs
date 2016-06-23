@@ -11,7 +11,6 @@ public class GameManagerScript : MonoBehaviour {
 	private int index;
 
 	void Start () {
-		Debug.Log ("Coucou le manager");
 		togglePause = false;
 		can.gameObject.SetActive (false);
 	}
