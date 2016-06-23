@@ -5,6 +5,12 @@ using System;
 public abstract class Actor : MonoBehaviour, ILiftable {
 	[HideInInspector]
 	public BioElement m_bioElement;
+	public GameObject m_bioAffiche;
+	public AudioClip m_audioActive;
+
+	protected virtual void Start(){
+		m_bioAffiche.SetActive (false);
+	}
 
 	public void Mutate (BioElement other){
 		if (m_bioElement == null) {
@@ -69,6 +75,7 @@ public abstract class Actor : MonoBehaviour, ILiftable {
 	}
 
 	public virtual GameObject getObject(){
+		m_bioAffiche.SetActive (false);
 		BioElement element = m_bioElement.GetComponent<BioElement> ();
 		if (element.m_generator != null)
 			element.m_generator.m_numberOfInstanceMax++;
@@ -80,5 +87,6 @@ public abstract class Actor : MonoBehaviour, ILiftable {
 	protected void DoShitWithBioElement(BioElement other){
 		m_bioElement = other;
 		other.gameObject.SetActive (false);
+		SoundMannager.instance.PlaySingle (m_audioActive);
 	}
 }

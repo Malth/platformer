@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
 	[SerializeField] private float m_JumpForce = 7f;                  // Amount of force added when the player jumps.
 	[SerializeField] private bool m_AirControl = false;                 // Whether or not a player can steer while jumping;
 	[SerializeField] private LayerMask m_WhatIsGround;                  // A mask determining what is ground to the character
+	public AudioClip m_SoundJump;
 
 	private Transform m_GroundCheck;    // A position marking where to check if the player is grounded.
 	const float k_GroundedRadius = .2f; // Radius of the overlap circle to determine if grounded
@@ -37,37 +38,33 @@ public class PlayerController : MonoBehaviour
 	public void Move(float hori, float verti, bool jump, bool climb)
 	{
 
-		if (m_Grounded || m_AirControl)
-		{
+		if (m_Grounded || m_AirControl) {
 
-			m_Rigidbody2D.velocity = new Vector2(hori*m_MaxSpeed, climb ? 0 : m_Rigidbody2D.velocity.y);
+			m_Rigidbody2D.velocity = new Vector2 (hori * m_MaxSpeed, climb ? 0 : m_Rigidbody2D.velocity.y);
 
-			if (hori > 0 && !m_FacingRight)
-			{
+			if (hori > 0 && !m_FacingRight) {
 				// ... flip the player.
-				Flip();
+				Flip ();
 			}
 			// Otherwise if the input is moving the player left and the player is facing right...
-			else if (hori < 0 && m_FacingRight)
-			{
-				Flip();
+			else if (hori < 0 && m_FacingRight) {
+				Flip ();
 			}
-		}
-		// If the player should jump...
-		if (m_Grounded && jump)
-		{
-			m_Grounded = false;
-			m_Rigidbody2D.velocity = new Vector2(m_Rigidbody2D.velocity.x, m_JumpForce);
-		}
+			// If the player should jump...
+			if (m_Grounded && jump) {
+				m_Grounded = false;
+				m_Rigidbody2D.velocity = new Vector2 (m_Rigidbody2D.velocity.x, m_JumpForce);
+				SoundMannager.instance.PlaySingle (m_SoundJump);
+			}
 
-		if (verti != 0 && climb) {
-			m_Rigidbody2D.velocity = new Vector2(m_Rigidbody2D.velocity.x, verti * m_MaxSpeed);
+			if (verti != 0 && climb)
+				m_Rigidbody2D.velocity = new Vector2 (m_Rigidbody2D.velocity.x, verti * m_MaxSpeed);
 		}
 
 	}
 
 
-	private void Flip()
+	public void Flip()
 	{
 		// Switch the way the player is labelled as facing.
 		m_FacingRight = !m_FacingRight;
