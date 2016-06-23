@@ -4,6 +4,7 @@ using System.Collections;
 public class Generator : MonoBehaviour, ILiftable{
 	public int m_numberOfInstanceMax = 5;
 	public GameObject m_ObjectToGenerate;
+	public GameObject m_adnAnim;
 
 	void Start(){
 		m_ObjectToGenerate.GetComponent<BioElement> ().m_generator = this;
@@ -20,6 +21,13 @@ public class Generator : MonoBehaviour, ILiftable{
 		if (m_numberOfInstanceMax == 0)
 			return false;
 		return true;
+	}
+
+	void Update(){
+		if (m_numberOfInstanceMax == 0)
+			m_adnAnim.SetActive (false);
+		else
+			m_adnAnim.SetActive (true);
 	}
 
 }

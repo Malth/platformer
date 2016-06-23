@@ -4,18 +4,22 @@ using UnityEngine;
 public class InputController : MonoBehaviour	{
 
 	public static InputController controller;
+	public AudioClip m_SoundWalk1;
+	public AudioClip m_SoundWalk2;
 
-	private PlayerController m_Character;
+	public static PlayerController m_Character;
 	private bool m_Jump;
 	private bool m_Climb;
 	private Animator m_Anim;
 	private GameObject m_surfaceToClimb = null;
+	private float timerFootSound;
 
 	private void Awake(){
 		controller = this;
 		m_Character = GetComponent<PlayerController>();
 		m_Anim = GetComponent<Animator>();
 	}
+
 
 	private void Update()
 	{
@@ -63,6 +67,12 @@ public class InputController : MonoBehaviour	{
 		m_Anim.SetBool ("Lifting", Lift.IsLifting ());
 		m_Anim.SetBool ("Jump", !PlayerController.m_Grounded);
 		m_Jump = false;
+
+		timerFootSound += Time.fixedDeltaTime;
+		if (timerFootSound > 0.2f && h != 0 && PlayerController.m_Grounded) {
+			SoundMannager.instance.RandomizeSFX (new AudioClip[] { m_SoundWalk1, m_SoundWalk2 });
+			timerFootSound = 0;
+		}
 	}
 
 	public void EndClimbing(){

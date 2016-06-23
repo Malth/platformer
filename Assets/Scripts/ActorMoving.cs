@@ -10,14 +10,14 @@ public class ActorMoving : Actor {
 	public float m_speed;
 	public GameObject m_pos1;
 	public GameObject m_pos2;
-
 	private Vector3 m_switch;
 	private bool m_canRun = true;
 	private Vector3 m_currentSpeed;
 
 	private Quaternion m_rotationInitiale;
 
-	void Start () {
+	protected override void Start () {
+		base.Start ();
 		if (m_behavior == MovingBehavior.ROTATE)
 			m_rotationInitiale = transform.rotation;
 		m_switch = m_pos1.transform.position;
@@ -25,6 +25,7 @@ public class ActorMoving : Actor {
 
 	protected override void MutateRoot (BioElement other){
 		DoShitWithBioElement (other);
+		m_bioAffiche.SetActive (true);
 		m_canRun = false;
 		if (m_behavior == MovingBehavior.ROTATE)
 			transform.rotation = m_rotationInitiale ;
@@ -33,6 +34,7 @@ public class ActorMoving : Actor {
 	public override GameObject getObject ()
 	{
 		m_canRun = true;
+		m_bioAffiche.SetActive (false);
 		return base.getObject ();
 	}
 
