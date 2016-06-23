@@ -8,7 +8,7 @@ public class Lift : MonoBehaviour {
 	public AudioClip m_SoundGrab;
 	public AudioClip m_SoundThrow;
 	public AudioClip m_SoundDrop;
-	public Rigidbody2D m_Aim;
+	public GameObject m_Aim;
 
 	private static GameObject m_LiftedObject = null;
 	private GameObject m_TrigeredObject = null;
@@ -92,10 +92,10 @@ public class Lift : MonoBehaviour {
 			} else
 				m_IsAiming = false;
 		}
-
-		m_Aim.gameObject.SetActive (m_IsAiming);
-		Debug.Log (m_Aim.transform.rotation.x + " " + m_Aim.transform.rotation.y );
-		m_Aim.transform.position = this.transform.position + new Vector3 (Input.GetAxis ("Horizontal"), Input.GetAxis ("Vertical"), 0);
+		m_Aim.SetActive (m_IsAiming);
+		if (m_IsAiming) {
+			m_Aim.transform.position = this.transform.position + new Vector3 (Input.GetAxis ("Horizontal"), Input.GetAxis ("Vertical"), 0);
+		}
 
 	}
 
