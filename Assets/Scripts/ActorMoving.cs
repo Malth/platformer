@@ -14,6 +14,8 @@ public class ActorMoving : Actor {
 	private Vector3 m_switch;
 	private bool m_canRun = true;
 	private Vector3 m_currentSpeed;
+	private Vector3 pos1;
+	private Vector3 pos2;
 
 	private Quaternion m_rotationInitiale;
 
@@ -21,7 +23,9 @@ public class ActorMoving : Actor {
 		base.Start ();
 		if (m_behavior == MovingBehavior.ROTATE)
 			m_rotationInitiale = transform.rotation;
-		m_switch = m_pos1.transform.position;
+		pos1 = m_pos1.transform.position;
+		pos2 = m_pos2.transform.position;
+		m_switch = pos1;
 	}
 
 	protected override void MutateRoot (BioElement other){
@@ -52,10 +56,10 @@ public class ActorMoving : Actor {
 				break;
 			}
 
-			if (Vector3.Distance (m_switch, transform.position) < 0.2f) {
-				if (m_switch == m_pos1.transform.position)
-					m_switch = m_pos2.transform.position;
-				else m_switch = m_pos1.transform.position;
+			if (Vector3.Distance (m_switch, transform.position) < 0.1f) {
+				if (m_switch == pos1)
+					m_switch = pos2;
+				else m_switch = pos1;
 			}
 		}
 	}
